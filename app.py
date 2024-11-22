@@ -10,7 +10,7 @@ def show_form():
     return render_template('index.html')
 
 # Route for processing form data
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
           
@@ -22,12 +22,12 @@ def index():
         # get data from yfinance
         stock = yf.Ticker(ticker)
         data = stock.history(start=f"{start_year}-01-01", end=f"{end_year}-12-31")
-    
+        info = stock.info
 
         ##sector = info.get('sector', 'Unknown')
 
         # Render the result page with data and stock information
-        return render_template('result.html', ticker=escape(ticker), data=data.to_html())
+        return render_template('result.html', ticker=escape(ticker), data=data.to_html(), info=info)
 
         ##return render_template('result.html', ticker=escape(ticker), data=data.to_html(), sector=sector)
     return render_template('index.html')
