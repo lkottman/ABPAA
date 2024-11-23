@@ -1,4 +1,3 @@
-<!-- The file will be the lading page of our product -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,26 +9,51 @@
     <title>Finance Data Input</title>
 </head>
 <body class="bg-light">
-    <div class="container d-flex flex-column justify-content-center align-items-center vh-100">
-        <h1>Access Financial Information</h1>
-        <form action="/" method="POST">
-            <div class="form-group">
-            <label for="ticker">Ticker:</label>
-            <input type="text" id="ticker" name="ticker" placeholder="z.B. AAPL" required><br><br>
+    <div class="container vh-100 d-flex flex-column justify-content-center align-items-center">
+        <h1 class="text-center mb-4">Access Financial Information</h1>
+        <div class="row w-100">
+            <div class="col-md-6">
+                <form action="/branchInfo" method="POST" class="border p-4 rounded bg-white">
+                    <h2 class="mb-3">Branch Information</h2>
+                    <div class="form-group mb-3">
+                        <label for="sectors">Choose a sector:</label>
+                        <select id="sectors" name="sectors" class="form-control">
+                            <option value="technology">Technology</option>
+                            <option value="financial-services">Financial Services</option>
+                            <option value="consumer-cyclical">Consumer Cyclical</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="industrials">Industrials</option>
+                            <option value="communication-services">Communication Services</option>
+                            <option value="consumers-defensive">Consumer Defensive</option>
+                            <option value="energy">Energy</option>
+                            <option value="real-estate">Real Estate</option>
+                            <option value="basic-materials">Basic Materials</option>
+                            <option value="utilities">Utilities</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Get data!</button>
+                </form>
             </div>
-            <div class="form-group">
-            <label for="start_year">Start Year:</label>
-            <input type="text" id="start_year" name="start_year" placeholder="z.B. 2020" required><br><br>
+
+            <div class="col-md-6">
+                <form action="/companyInfo" method="POST" class="border p-4 rounded bg-white">
+                    <h2 class="mb-3">Company Information</h2>
+                    <div class="form-group mb-3">
+                        <label for="ticker">Ticker:</label>
+                        <input type="text" id="ticker" name="ticker" class="form-control" placeholder="AAPL" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="start_year">Start Year:</label>
+                        <input type="text" id="start_year" name="start_year" class="form-control" placeholder="2020" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="end_year">End Year:</label>
+                        <input type="text" id="end_year" name="end_year" class="form-control" placeholder="2021" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Get data!</button>
+                </form>
             </div>
-            <div class="form-group">
-            <label for="end_year">End Year5:</label>
-            <input type="text" id="end_year" name="end_year" placeholder="z.B. 2021" required><br><br>
-            </div>
-            <button type="submit" class="btn btn-primary">Get data!</button>
-        </form>
+        </div>
     </div>
 </body>
 </html>
-
-
-

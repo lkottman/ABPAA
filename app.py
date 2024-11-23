@@ -6,12 +6,12 @@ app = Flask(__name__)
 
 # Route for displaying the form
 @app.route('/', methods=['GET'])
-def show_form():
+def index():
     return render_template('index.html')
 
 # Route for processing form data
-@app.route('/', methods=['POST', 'GET'])
-def index():
+@app.route('/companyInfo', methods=['POST', 'GET'])
+def company_results():
     if request.method == 'POST':
           
         #input
@@ -27,10 +27,52 @@ def index():
         ##sector = info.get('sector', 'Unknown')
 
         # Render the result page with data and stock information
-        return render_template('result.html', ticker=escape(ticker), data=data.to_html(), info=info)
+        return render_template('companyInfo.html', ticker=escape(ticker), data=data.to_html(), info=info)
 
         ##return render_template('result.html', ticker=escape(ticker), data=data.to_html(), sector=sector)
     return render_template('index.html')
+
+
+
+@app.route('/branchInfo', methods=['POST'])
+def branch_results():
+
+            #sector_key = request.form.get('sector_key', 'technology')
+            #sector = yf.Sector(sector_key)
+            #branch = yf.Sector('technology')
+            #print('========= TEST ========')
+            #print(branch)
+
+        sector_name = request.form['sectors']
+        sector_name1 = request.form.get('sector_key', 'energy')
+        print('========= TEST 1 ========')
+        print('sector_name ' + sector_name)
+        print('sector_name1 ' + sector_name1)
+        sector = yf.Sector(sector_name)
+        software = yf.Industry('software-infrastructure')
+
+        # Common information
+        #tech.key
+        #tech.name
+        #tech.symbol
+        #tech.ticker
+        sectorN = sector.name
+        sectorO = sector.overview
+        sectorT = sector.top_companies
+        #sectorD = sectorO['description']
+        sectorD = 'Wildcard'
+        #tech.research_reports
+
+        # Sector information
+        #tech.top_etfs
+        #tech.top_mutual_funds
+        #tech.industries
+
+        print('========= TEST 2 ========')
+        print(sectorN)
+        #print(f"Name: {techo['description']}")
+        return render_template('branchInfo.html', sectorName=sector.name, sectorOverview=sector.overview, sectorD=sectorD, sectorT=sectorT.to_html())
+        
 
 if __name__ == '__main__':
     app.run(debug=True)
