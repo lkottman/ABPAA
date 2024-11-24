@@ -24,6 +24,10 @@ def company_results():
         data = stock.history(start=f"{start_year}-01-01", end=f"{end_year}-12-31")
         info = stock.info
 
+        print('========= TEST 1 ========')
+        print(info)
+       
+        #print('info dir ' + dir(info))
         ##sector = info.get('sector', 'Unknown')
 
         # Render the result page with data and stock information
@@ -58,7 +62,7 @@ def branch_results():
         #tech.ticker
         sectorN = sector.name
         sectorO = sector.overview
-        sectorT = sector.top_companies
+        sectorList = sector.top_companies
         #sectorD = sectorO['description']
         sectorD = 'Wildcard'
         #tech.research_reports
@@ -68,10 +72,10 @@ def branch_results():
         #tech.top_mutual_funds
         #tech.industries
 
-        print('========= TEST 2 ========')
-        print(sectorN)
+        #print('========= TEST 2 ========')
+        #äprint(sectorN)
         #print(f"Name: {techo['description']}")
-        return render_template('branchInfo.html', sectorName=sector.name, sectorOverview=sector.overview, sectorD=sectorD, sectorT=sectorT.to_html())
+        return render_template('branchInfo.html', sectorName=sector.name, sectorOverview=sector.overview, sectorList=sectorList.to_html())
         
 
 if __name__ == '__main__':
