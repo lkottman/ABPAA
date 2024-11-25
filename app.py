@@ -14,16 +14,16 @@ def company_results():
           
 
         ticker = request.form['ticker']
-        start_year = request.form['start_year']
-        end_year = request.form['end_year']
+        startYear = request.form['start_year']
+        endYear = request.form['end_year']
 
 
         stock = yf.Ticker(ticker)
-        data = stock.history(start=f"{start_year}-01-01", end=f"{end_year}-12-31")
+        #start = str(startYear) + "-01-01"
+
+        data = stock.history(start=f"{startYear}-01-01", end=f"{endYear}-12-31")
         info = stock.info
 
-        print('========= TEST 1 ========')
-        print(info)
 
         return render_template('companyInfo.html', ticker=escape(ticker), data=data.to_html(), info=info)
 
@@ -35,15 +35,13 @@ def company_results():
 def branch_results():
 
 
-        sector_name = request.form['sectors']
-        sector_name1 = request.form.get('sector_key', 'energy')
+        sectorName = request.form['sectors']
         print('========= TEST 1 ========')
-        print('sector_name ' + sector_name)
-        print('sector_name1 ' + sector_name1)
-        sector = yf.Sector(sector_name)
-        sectorList = sector.top_companies
+        print('sector_name ' + sectorName)
+        sectorInfo = yf.Sector(sectorName)
+        #sectorList = sectorInfo.top_companies
 
-        return render_template('branchInfo.html', sectorName=sector.name, sectorOverview=sector.overview, sectorList=sectorList.to_html())
+        return render_template('branchInfo.html', sectorName=sectorInfo.name, sectorOverview=sectorInfo.overview, sectorList=(sectorInfo.top_companies).to_html())
         
 
 if __name__ == '__main__':
